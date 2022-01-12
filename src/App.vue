@@ -4,11 +4,11 @@
   >
     <h1 class="py-2 text-2xl text-center">{{ headline }}</h1>
 
-    <!--
+    <!-- Alternative oder unsauber ? 
     <h2 class="pb-2 text-1xl text-gray-500 text-center">
       {{ openTodos > 0 ? "Noch Offen " + openTodos : "Keine Todos offen" }}
     </h2>
--->
+    -->
 
     <h2 class="pb-2 text-1xl text-gray-500 text-center">
       <div v-if="todos.length < 1">Lege eine Todo an!</div>
@@ -92,8 +92,11 @@ export default {
     },
   },
   mounted() {
+    // VUE - MOUNTED LIFE CICLE
     let data = localStorage.getItem("todos");
-    this.todos = JSON.parse(data);
+    if (data !== "" && data !== null && data !== undefined) {
+      this.todos = JSON.parse(data);
+    }
   },
   computed: {
     openTodos() {

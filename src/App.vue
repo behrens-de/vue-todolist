@@ -1,14 +1,14 @@
 <template>
-  <HelloVue/>
+  <Todo message="Hallo"/>
 </template>
 
 <script>
-import HelloVue from './components/HelloVue.vue'
+import Todo from './components/Todo.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloVue
+    Todo
   }
 }
 </script>

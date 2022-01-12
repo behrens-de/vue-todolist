@@ -1,13 +1,28 @@
 <template>
-  <div class="bg-gray-100 text-dark max-w-2xl rounded-md mx-5 md:mx-auto my-5">
-    <h1 class="py-2 text-2xl text-center">Meine Todoliste</h1>
+  <div
+    class="bg-gray-100 text-dark max-w-2xl rounded-md mx-5 md:mx-auto my-5 shadow-lg border-1 border border-gray-200"
+  >
+    <h1 class="py-2 text-2xl text-center">{{ headline }}</h1>
     <h2 class="pb-2 text-1xl text-gray-500 text-center">
-      Noch offen: {{ todos.filter((todo) => !todo.done).length }}
+      {{ openTodos > 0 ? "Noch Offen " + openTodos : "Keine Todos offen" }}
     </h2>
+
+    <!-- Alternativ mit v-if uns v-else direktiven
+    <h2 class="pb-2 text-1xl text-gray-500 text-center">
+      <div v-if="openTodos > 0"> Noch offen {{openTodos}}</div>
+      <div v-else>Keine offenen Todos!</div>
+    </h2> 
+    -->
+
     <div class="w-full bg-gray-200 flex justify-center p-1">
-      <input type="text" class="grow w-full px-3 mr-1" v-model="newTodo" />
+      <input
+        type="text"
+        placeholder="Aufgabe anlegen..."
+        class="grow w-full px-3 mr-1"
+        v-model="newTodo"
+      />
       <button @click="addTodo" class="bg-green-600 text-white py-1 px-3">
-        Anlegen
+        {{ buttonText }}
       </button>
     </div>
 
@@ -40,6 +55,8 @@ export default {
   },
   data() {
     return {
+      headline: "Meine Todoliste",
+      buttonText: "Hinzufügen",
       newTodo: "",
       todos: [
         {
@@ -59,7 +76,8 @@ export default {
   },
   methods: {
     addTodo() {
-      if(this.newTodo.trim() === '') return;
+      if (this.newTodo.trim() === "") return;
+
       this.todos.push({
         label: this.newTodo,
         done: false,
@@ -72,6 +90,13 @@ export default {
     },
     removeTodo(index) {
       this.todos.splice(index, 1);
+      // console.log(index);
+      // console.log(this.todos[index]);
+    },
+  },
+  computed: {
+    openTodos() {
+      return this.todos.filter((t) => !t.done).length;
     },
   },
 };

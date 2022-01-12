@@ -1,9 +1,9 @@
 <template>
-  <div
-    class="flex justify-between items-center bg-white p-2 border border-indigo-200 m-2"
-    :class="{ 'bg-green-600': todo.done, 'bg-red-600': !todo.done }"
-  >
-    <h1 @click="toggleTodo" class="cursor-pointer">{{ todo.label }}</h1>
+  <div class="flex justify-between items-center bg-white p-2 border border-indigo-200 m-2">
+    <h1 @click="toggleTodo" class="cursor-pointer"
+    :class="{'line-through': todo.done }"
+    >{{ todo.label }}</h1>
+
     <button
       @click="removeTodo"
       class="bg-indigo-500 text-xs text-white py-1 px-3 rounded-sm"
